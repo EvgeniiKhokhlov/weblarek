@@ -10,12 +10,12 @@ export class ProductCatalog {
         this.selectedProduct = null;
     }
 
-    saveProducts(products: IProduct[]): void {
+    saveArrayProducts(products: IProduct[]): void {
         this.products = products;
 
     }
 
-    getProducts(): IProduct[] {
+    getArrayProducts(): IProduct[] {
         return this.products;
     }
 

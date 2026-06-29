@@ -1,4 +1,4 @@
-import { IBuyer, TPayment } from "../../types/index";
+import { IBuyer, TPayment, TBuyerErrors } from "../../types/index";
 
 export class Buyer {
     protected data: IBuyer;
@@ -33,17 +33,15 @@ export class Buyer {
     }
 
     clearingBuyer(): void {
-        Object.values(this.data).forEach(values =>{
-            values = "";
-        })
+        this.data = {
+            payment: "",
+            address: "",
+            email: "",
+            phone: "",
+        };
     }
 
-    validateBuyer(): {
-        paymentMethod: string;
-        address: string; 
-        phone: string; 
-        email: string;
-    } {
+    validateBuyer(): TBuyerErrors {
         const error = {
             paymentMethod: "",
             address: "",

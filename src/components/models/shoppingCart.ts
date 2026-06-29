@@ -1,6 +1,6 @@
 import { IProduct } from '../../types/index';
 
-export class shoppingCart {
+export class ShoppingCart {
     protected productList: IProduct[];
 
     constructor() {
@@ -16,7 +16,7 @@ export class shoppingCart {
     };
 
     deleteProductList(id: string): void {
-        this.productList.filter((product) => product.id !== id);
+        this.productList = this.productList.filter((product) => product.id !== id);
     };
 
     emptyingProductList(): void {

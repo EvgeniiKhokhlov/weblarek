@@ -4,6 +4,8 @@ export type TOrderResponse = {
     id: string;
     total: number;
 };
+
+
 export interface IApi {
     get<T extends object>(uri: string): Promise<T>;
     post<T extends object>(uri: string, data: object, method?: ApiPostMethods): Promise<T>;
@@ -31,7 +33,9 @@ export interface IOrderRequest extends IBuyer {
     items: string[];
 };
 
-export interface IOrderResultApi {
+export interface IProductsResponse {
     items: IProduct[];
     total: number;
 }
+
+export type TBuyerErrors = Partial<Record<keyof IBuyer,string >>; 

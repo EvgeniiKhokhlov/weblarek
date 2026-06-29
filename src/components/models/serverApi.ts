@@ -1,5 +1,5 @@
 
-import { IApi, IOrderRequest, TOrderResponse, IOrderResultApi } from '../../types/index';
+import { IApi, IOrderRequest, TOrderResponse, IProductsResponse } from '../../types/index';
 
 export class ServerApi {
    protected api: IApi;
@@ -8,7 +8,7 @@ export class ServerApi {
     this.api = api;
   }
 
-  async getProducts(): Promise<IOrderResultApi> {
+  async getProducts(): Promise<IProductsResponse> {
     return this.api.get('/product/');
   }
 

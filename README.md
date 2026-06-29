@@ -131,8 +131,8 @@ Presenter - презентер содержит основную логику п
 `protected selected product: IProduct` -  хранит товар, выбранный для подробного отображения.
 
 Методы класса:  
-`saveProducts(products: IProduct[]): void` - сохранение массива товаров полученного в параметрах метода.  
-`getProducts(): IProduct[]` - получение массива товаров из модели.  
+`saveArrayProducts(products: IProduct[]): void` - сохранение массива товаров полученного в параметрах метода.  
+`getArrayProducts(): IProduct[]` - получение массива товаров из модели.  
 `getProductByID(id: string): IProduct` - получение одного товара по его id.
 `saveProduct(product: IProduct): void` - сохранение товара для подробного отображения.  
 `getProduct(): IProduct` - получение товара для подробного отображения.
