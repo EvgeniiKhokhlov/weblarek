@@ -120,7 +120,7 @@ Presenter - презентер содержит основную логику п
 
  ### Модели данных
 
- #### Класс "productСatalog"
+ #### Класс "ProductCatalog"
 
 Реализует хранение товаров, которые можно купить в приложении.
 
@@ -128,7 +128,7 @@ Presenter - презентер содержит основную логику п
 
 Поля класса:  
 `protected products: IProduct[]` -  хранит массив всех товаров.
-`protected selected product: IProduct` -  хранит товар, выбранный для подробного отображения.
+`protected selectedProduct: IProduct | null` -  хранит товар, выбранный для подробного отображения.
 
 Методы класса:  
 `saveArrayProducts(products: IProduct[]): void` - сохранение массива товаров полученного в параметрах метода.  
@@ -137,7 +137,7 @@ Presenter - презентер содержит основную логику п
 `saveProduct(product: IProduct): void` - сохранение товара для подробного отображения.  
 `getProduct(): IProduct` - получение товара для подробного отображения.
 
- #### Класс "shoppingСart"
+ #### Класс "ShoppingCart"
 
 Реализует храние массива товаров, выбранных покупателем для покупки.
 
@@ -162,14 +162,15 @@ Presenter - презентер содержит основную логику п
 
 Конструктор класса не принимает параметров.
 
-Поля класса:  
-`paymentMethod: TPaymen` -  вид оплаты.
-`address: string` -  адреc.
-`phone: string` -  телефон;.
-`email: string` -  email.
+Поля класса:   
+`data: IBuyer` - общий обьект включающий поля:
+`payment:` -  вид оплаты.
+`address:` -  адреc.
+`phone:` -  телефон;.
+`email:` -  email.
 
 Методы класса:  
-`savePaymentMethod(paymentMethod: TPaymen): void` - сохранение данных об выборе оплаты.
+`savePaymentMethod(payment: TPaymen): void` - сохранение данных об выборе оплаты.
 `saveAddress(address: string): void` - сохранение данных об адреса доставки.
 `savePhone(phone: string): void` - сохранение контакнтного номера телефона покупателя.
 `saveEmail(email: string): void` - сохранение электронной почты покупателя.
@@ -189,7 +190,7 @@ Presenter - презентер содержит основную логику п
 `protected api: IApi` - отправка запроса на сервер.
 
 Методы класса:  
-`getProducts(): Promise<IResult>` - выполняет GET‑запрос и получает с сервера объект с массивом товаров.
+`getProducts(): Promise<IProductsResponse>` - выполняет GET‑запрос и получает с сервера объект с массивом товаров.
 `postOrder(orderRequest: IOrderRequest): Promise<IOrderResponse>` - отправляет POST‑запрос о покупателе и выбранных товарах.
   
 

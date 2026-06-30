@@ -43,14 +43,14 @@ export class Buyer {
 
     validateBuyer(): TBuyerErrors {
         const error = {
-            paymentMethod: "",
+            payment: "",
             address: "",
             email: "",
             phone: "",
         };
 
         if(!this.data.payment.trim()) {
-            error.paymentMethod = "Укажите вид оплаты";
+            error.payment = "Укажите вид оплаты";
         }
 
         if(!this.data.address.trim()) {

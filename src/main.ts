@@ -3,6 +3,9 @@ import { apiProducts } from "./utils/data";
 import { ProductCatalog } from "./components/models/productCatalog";
 import { Buyer } from "./components/models/Buyer";
 import { ShoppingCart } from "./components/models/shoppingCart";
+import { API_URL } from './utils/constants'
+import { Api } from './components/base/Api'
+import { ServerApi } from './components/models/serverApi'
 
 const productsModel = new ProductCatalog();
 const buyer = new Buyer();
@@ -37,3 +40,15 @@ console.log('Получение всех данных покупателя:', bu
 console.log('Валидация данных покупателя:', buyer.validateBuyer());
 console.log('Очистка данных покупателя:', buyer.clearingBuyer());
 
+const api = new Api(API_URL);
+const serverApi = new ServerApi(api);
+serverApi.getProducts()
+  .then ( (data) => {
+    console.log('Каталог товаров с сервера: ', data.items);
+
+    productsModel.saveArrayProducts(data.items);
+    console.log('Модель данных каталога: ', productsModel.getArrayProducts());
+  })
+  .catch ( (error) => {
+    console.error('Ошибка загрузки товаров: ', error);
+  } )
