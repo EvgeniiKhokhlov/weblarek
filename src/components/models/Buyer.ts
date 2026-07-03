@@ -1,9 +1,12 @@
 import { IBuyer, TPayment, TBuyerErrors } from "../../types/index";
+import { IEvents } from "../base/Events";
 
 export class Buyer {
     protected data: IBuyer;
+    protected events: IEvents;
 
-    constructor() {
+    constructor(events: IEvents) {
+        this.events = events;
         this.data = {
             payment: "",
             address: "",
@@ -13,19 +16,23 @@ export class Buyer {
     }
 
     savePaymentMethod(payment: TPayment): void {
+        this.events.emit('buyer-data:changed', { field: 'payment' });
         this.data.payment = payment;
     }
 
     saveAddress(address: string): void {
         this.data.address = address;
+        this.events.emit('buyer-data:changed', { field: 'address' });
     }
 
     savePhone(phone: string): void {
         this.data.phone = phone;
+        this.events.emit('buyer-data:changed', { field: 'phone' });
     }
 
     saveEmail(email: string): void {
         this.data.email = email;
+        this.events.emit('buyer-data:changed', { field: 'email' });
     }
 
     getBuyer(): IBuyer {

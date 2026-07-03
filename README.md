@@ -192,7 +192,226 @@ Presenter - презентер содержит основную логику п
 Методы класса:  
 `getProducts(): Promise<IProductsResponse>` - выполняет GET‑запрос и получает с сервера объект с массивом товаров.
 `postOrder(orderRequest: IOrderRequest): Promise<IOrderResponse>` - отправляет POST‑запрос о покупателе и выбранных товарах.
-  
+
+### Cлой представления 
+
+#### Класс Header
+
+Реализует слой представления визуализирующий шапку проекта.
+
+Конструктор:
+`constructor(container: HTMLElement, protected events: IEvents`
+`container` - DOM‑элемент
+`events` -  управление событием.
+
+Поля класса:   
+`protected basketButton: HTMLButtonElement` - кнопка открытия корзины:
+`protected counterElement: HTMLElement` - счетчик товара в корзине.
+
+Событие:
+`shopping-cart:open` - открытие корзины.
+
+Методы класса:  
+`set counter(value: number)` - обновление счетчика.   
+
+#### Класс Basket
+
+Реализует слой представления визуализирующий корзину и её управление.
+
+Конструктор:
+`constructor(container: HTMLElement, protected events: IEvents)`
+`container` - DOM‑элемент
+`events` -  управление событием.
+
+Поля класса:   
+`protected basketListProducts: HTMLElement` - отоброжение списка товара в корзине:
+`protected checkoutButton: HTMLButtonElement` - кнопка оформления товара.
+`protected priceElement: HTMLElement` - отоброжение итоговой стоймости.
+
+Событие:
+`order:open` - открытие формы заказа.
+
+Методы класса:  
+`set list(value: HTMLElement[])` - обновление списка товара в корзине.
+`set price(value: number)` - общая стоимость заказа.
+`setBasketStatus(isEmpty: boolean)` - состояние кнопки оформления заказа (при отсутсвии товара в корзине становится не активной).
+
+#### Класс Gallery
+
+Реализует слой представления визуализирующий галереи товаров.
+
+Конструктор:
+`constructor(container: HTMLElement)`
+`container` - DOM‑элемент
+
+Методы класса:  
+`set update(items: HTMLElement[])` - обновление списка товара.
+
+#### Класс Modal
+
+Реализует слой представления визуализирующий модальные окна.
+
+Конструктор:
+`constructor(container: HTMLElement, protected events: IEvents)`
+`container` - DOM‑элемент.
+`events` -  управление событием.
+
+Поля класса:   
+`protected closeButton: HTMLButtonElement` - закрытие окна
+`protected contentElement: HTMLElement` - отоброжение окна.
+
+Событие:
+`modal:open` - открытие окна.
+`modal:close` - закрытие окна.
+
+Методы класса:  
+`set content(value: HTMLElement)` - обновление конткнта.
+`open(): void` - открытие окна.
+`close(): void` - закрытие окна.
+
+#### Класс Success
+
+Реализует слой представления визуализирующий успешное оформление заказа.
+
+Конструктор:
+`constructor(container: HTMLElement, actions: ISuccessActions)`
+`container` - сообщение об успехе.
+`actions` -  объект с обработчиками действий.
+
+Поля класса:   
+`protected closeButton: HTMLButtonElement` - кнопка закрытия сообщения.
+`protected totalElement: HTMLElement` - сумма заказа.
+
+Методы класса:  
+`set total(value: number)` - отоброжение суммы заказа.
+
+#### Абстрактный класс Card
+
+Реализует слой представления всех карточек товара.
+
+Конструктор:
+`constructor(container: HTMLElement)`
+`container` - карточки товара.
+
+Поля класса:   
+`protected titleElement: HTMLElement` - название товара.
+`protected priceElement: HTMLElement` - цена товара.
+
+Методы класса:  
+`set title(value: string)` - обновление названия товара.
+`set price(value: number | null)` - обновление цены.
+
+#### Класс CardCatalog
+
+Реализует слой представления карточек товара в каталоге.
+
+Конструктор:
+`constructor(container: HTMLElement, actions?: ICardActions)`
+`container` - карточки товара.
+`actions?` - отоброжение кликов.
+
+Поля класса:   
+`protected categoryElement: HTMLElement` - категория товара.
+`protected imageElement: HTMLImageElement` - изображение товара.
+
+Методы класса:  
+`set category(value: string)` - обновление категории товара.
+`set image(value: string)` - обновление изображения.
+
+#### Класс CardPreview
+
+Реализует слой представления предварительного просмотра карточки товара.
+
+Конструктор:
+`constructor(container: HTMLElement, actions?: ICardActions)`
+`container` - карточки товара.
+`actions?` - отоброжение кликов.
+
+Поля класса:   
+`protected categoryElement: HTMLElement` - категория товара.
+`protected imageElement: HTMLImageElement` - изображение товара.
+`protected descriptionElement: HTMLElement` - описание товара.
+`protected cardButton: HTMLButtonElement` - кнопка действия.
+
+Событие:
+`onButtonClick` - при нажатии на кнопку действия.
+
+Методы класса:  
+`set description(value: string)` - обновление описания товара.
+`set disabled(value: boolean)` - управление активностью кнопки.
+`set cardButtonText(value: string)` - обновление текста на кнопке действия.
+`setPurchaseOpportunity(isInShoppingCart: boolean, price: number | null)` - состояние кнопки.
+
+
+#### Абстрактный класс Form
+
+Реализует слой представления всех типов форм.
+
+Конструктор:
+`constructor(container: HTMLFormElement, protected events: IEvents)`
+`container` - DOM‑элемент формы.
+`events` - управление событиями.
+
+Поля класса:   
+`protected formElement: HTMLFormElement` - основной элемент формы.
+`protected submitButton: HTMLButtonElement` - кнопка отправки формы.
+`protected errorsContainer: HTMLElement` - сообщение об ошибках валидации.
+
+Событие:
+`{formName}:submit` - отправка при успешной валидации формы.
+
+Методы класса:  
+`set valid(value: boolean)` - состояние кнопки отправки.
+`set errors(value: string[])` - отображает ошибки валидации.
+
+
+#### Класс ContactsForm
+
+Реализует слой представления формы ввода контактных данных.
+
+Конструктор:
+`onstructor(container: HTMLFormElement, protected events: IEvents)`
+`container` - форма контактных данных.
+`events` - управление событиями.
+
+Поля класса:   
+`protected emailElement: HTMLInputElement` - ввод email‑адреса пользователя.
+`protected phoneElement: HTMLInputElement` - ввод номера телефона пользователяа.
+
+Событие:
+`contacts:changed` - изменение данных в полях формы.
+`contacts:submit` - отправление формы.
+
+Методы класса:  
+`set email(value: string)` - получение email.
+`set disabled(value: boolean)` - получение телефона.
+
+#### Класс OrderForm
+
+Реализует слой представления для отображения и управления формой заказа.
+
+Конструктор:
+`constructor(container: HTMLFormElement, protected events: IEvents)`
+`container` - форма заказа.
+`events` - управление событиями.
+
+Поля класса:   
+`protected paymentButtons: HTMLButtonElement[]` - массив кнопок для выбора способа оплаты.
+`protected addressElement: HTMLInputElement` - поле ввода адреса доставки.
+
+Событие:
+`order:changed` - изменение данных формы.
+`order:submit` - отправление формы.
+
+Методы класса:  
+`set payment(value: string)` - выделяет выбранный способ оплаты.
+`set address(value: string)` - заполняет поле ввода адреса.
+`validate(): boolean` - валидация данных формы.
+`getData(): { payment: string, address: string }` - текущие данные формы.
+`reset(): void` - сбрас формы.
+
+
+
 
 
 
